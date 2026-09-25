@@ -1,0 +1,53 @@
+/* ===== PLUMBING THEME — deep hydro blue + copper, high contrast ===== */
+:root{
+  --font-display:"Manrope",var(--font-body);
+  /* richer, deeper blue ramp (less faded) */
+  --brand-50:#e9f6ff; --brand-100:#cfebff; --brand-200:#a3d8ff; --brand-300:#6ec1fb;
+  --brand-400:#33a3f0; --brand-500:#0b84d6; --brand-600:#0369a1; --brand-700:#075985;
+  --brand-800:#0b4a70; --brand-900:#08324d;
+  /* warm copper accent for punch */
+  --accent-400:#fb9d3e; --accent-500:#f2760c; --accent-600:#c85a05;
+  --brand:var(--brand-600); --brand-ink:var(--brand-900);
+  --ink:#0c1a26; --ink-soft:#3c4a57; --ink-faint:#5c6b78;
+  --bg-tint:#eef6fc; --bg-deep:#062033;
+}
+
+/* ---- Contrast boosters over base.css ---- */
+/* punchier gradient headline word */
+.text-grad{background:linear-gradient(115deg,var(--brand-800),var(--brand-500) 42%,var(--accent-500));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+/* deeper primary button */
+.btn-primary{background:linear-gradient(135deg,var(--brand-500),var(--brand-800));box-shadow:0 20px 44px -14px color-mix(in srgb,var(--brand-800) 55%,transparent)}
+/* copper accent button reads as the loudest action */
+.btn-accent{color:#fff;background:linear-gradient(135deg,var(--accent-400),var(--accent-600));
+  box-shadow:0 20px 44px -14px color-mix(in srgb,var(--accent-600) 60%,transparent)}
+/* gentle depth wash behind hero */
+.hero{background:linear-gradient(180deg,var(--brand-50),#ffffff 62%)}
+.mesh span{opacity:.7}
+.mesh .m1{background:radial-gradient(circle,#bfe6ff,transparent 70%)}
+.mesh .m2{background:radial-gradient(circle,rgba(242,118,12,.5),transparent 70%)}
+/* stronger photo overlay so white float cards pop */
+.hero-photo::after{background:linear-gradient(180deg,rgba(6,32,51,.08) 42%,rgba(6,32,51,.66))}
+.hero-photo,.split-media{border:1px solid rgba(6,32,51,.10)}
+/* eyebrow a touch bolder */
+.eyebrow{color:var(--brand-700)}
+
+/* factual value chip */
+.value-chip{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem .95rem;border-radius:var(--r-pill);
+  background:var(--brand-600);border:1px solid var(--brand-700);
+  color:#fff;font-weight:700;font-size:.82rem;box-shadow:var(--sh-sm)}
+.value-chip svg{width:1.05rem;height:1.05rem;color:var(--accent-400)}
+
+/* dark trust strip (replaces numeric statbar) */
+.trustbar .wrap{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding-block:2.3rem}
+.trust-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.55rem;padding-inline:.5rem}
+.trust-item svg{width:2rem;height:2rem;color:var(--accent-400)}
+.trust-item strong{font-family:var(--font-display);font-weight:800;font-size:1.04rem;color:#fff;line-height:1.2}
+.trust-item span{font-size:.84rem;color:rgba(255,255,255,.75)}
+.trust-item+.trust-item{border-left:1px solid rgba(255,255,255,.14)}
+@media (max-width:960px){.trustbar .wrap{grid-template-columns:repeat(2,1fr);gap:1.5rem}.trust-item:nth-child(3){border-left:0}}
+@media (max-width:640px){.trustbar .wrap{grid-template-columns:1fr}.trust-item+.trust-item{border-left:0;border-top:1px solid rgba(255,255,255,.14);padding-top:1.4rem}}
+
+/* gallery caption: stronger scrim + copper rule */
+.gallery figcaption{background:linear-gradient(transparent,rgba(6,32,51,.86))}
+.gallery figure{border:1px solid rgba(6,32,51,.10)}
