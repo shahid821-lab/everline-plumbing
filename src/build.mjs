@@ -28,7 +28,7 @@ function parseEnv(text) {
 }
 function derive(env) {
   const d = { ...env };
-  if (env.PHONE) {
+  if (!env.PHONE_TEL && env.PHONE) {
     const g = env.PHONE.replace(/[^\d]/g, "");
     d.PHONE_TEL = (g.length === 11 && g[0] === "1") ? "+" + g : (g.length === 10 ? "+1" + g : "+" + g);
   }
