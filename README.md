@@ -45,7 +45,7 @@ Git-connected (auto-deploys on every push):
    - Production branch: `main`
    - Framework preset: `None`
    - Build command: `npm run build`
-   - Build output directory: `/`
+   - Build output directory: `dist`
 4. Save and deploy.
 
 CLI alternative (direct upload):
@@ -53,7 +53,7 @@ CLI alternative (direct upload):
 ```
 npm run build
 npx wrangler pages project create everline-plumbing --production-branch main
-npx wrangler pages deploy . --project-name everline-plumbing --branch main
+npx wrangler pages deploy dist --project-name everline-plumbing --branch main
 ```
 
 ## Custom domain

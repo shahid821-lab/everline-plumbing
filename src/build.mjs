@@ -5,7 +5,7 @@
    and writes the static site to the repo ROOT, ready for Cloudflare Pages.
      node src/build.mjs
    ============================================================= */
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync, statSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync, statSync, rmSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -103,16 +103,24 @@ const sitemap = (d) => {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${base}/</loc><lastmod>${today}</lastmod><priority>1.0</priority></url>\n</urlset>\n`;
 };
 
+const OUT = join(ROOT, "dist"); // clean, deploy-only output (never node_modules or src)
+if (existsSync(OUT)) rmSync(OUT, { recursive: true, force: true });
+mkdirSync(OUT, { recursive: true });
+
 const env = derive(parseEnv(readFileSync(join(SRC, ".env"), "utf8")));
 const tpl = readFileSync(join(SRC, "content.html"), "utf8");
-writeFileSync(join(ROOT, "index.html"), render(tpl, env));
-copyFileSync(join(SRC, "base.css"), join(ROOT, "base.css"));
-copyFileSync(join(SRC, "app.js"), join(ROOT, "app.js"));
-copyFileSync(join(SRC, "theme.css"), join(ROOT, "theme.css"));
-copyDir(join(SRC, "assets"), join(ROOT, "assets"));
-writeFileSync(join(ROOT, "privacy.html"), legalShell("Privacy Policy", privacyBody(env), env));
-writeFileSync(join(ROOT, "terms.html"), legalShell("Terms of Service", termsBody(env), env));
-writeFileSync(join(ROOT, "404.html"), legalShell("Page not found", notFoundBody(env), env));
-writeFileSync(join(ROOT, "robots.txt"), robots(env));
-writeFileSync(join(ROOT, "sitemap.xml"), sitemap(env));
-console.log(`✓ Built ${env.BRAND_NAME} → repo root  (${env.PHONE})`);
+writeFileSync(join(OUT, "index.html"), render(tpl, env));
+copyFileSync(join(SRC, "base.css"), join(OUT, "base.css"));
+copyFileSync(join(SRC, "app.js"), join(OUT, "app.js"));
+copyFileSync(join(SRC, "theme.css"), join(OUT, "theme.css"));
+copyDir(join(SRC, "assets"), join(OUT, "assets"));
+writeFileSync(join(OUT, "privacy.html"), legalShell("Privacy Policy", privacyBody(env), env));
+writeFileSync(join(OUT, "terms.html"), legalShell("Terms of Service", termsBody(env), env));
+writeFileSync(join(OUT, "404.html"), legalShell("Page not found", notFoundBody(env), env));
+writeFileSync(join(OUT, "robots.txt"), robots(env));
+writeFileSync(join(OUT, "sitemap.xml"), sitemap(env));
+// Cloudflare Pages config files travel with the output
+for (const f of ["_headers", "_redirects"]) {
+  if (existsSync(join(SRC, f))) copyFileSync(join(SRC, f), join(OUT, f));
+}
+console.log(`✓ Built ${env.BRAND_NAME} → dist/  (${env.PHONE})`);
