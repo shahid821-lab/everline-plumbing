@@ -1,0 +1,31 @@
+/* ===== PEST CARE PLUS THEME — fresh green + warm amber ===== */
+:root{
+  --brand-50:#ecfdf3; --brand-100:#d1fadf; --brand-200:#a6f0c0; --brand-300:#6ee19a;
+  --brand-400:#34c873; --brand-500:#16a34a; --brand-600:#15803d; --brand-700:#166534;
+  --brand-800:#14532d; --brand-900:#0a3119;
+  --accent-400:#fbbf24; --accent-500:#f59e0b; --accent-600:#d97706;
+  --ink:#0e1a12; --ink-soft:#3a4a40; --ink-faint:#5a6b60;
+  --bg-tint:#eefaf1; --bg-deep:#0a2a17;
+}
+/* gradient accents (premium depth over base.css) */
+.text-grad{background:linear-gradient(115deg,var(--brand-800),var(--brand-500) 45%,var(--accent-500));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.btn-primary{background:linear-gradient(135deg,var(--brand-500),var(--brand-800))}
+.btn-accent{background:linear-gradient(135deg,var(--accent-400),var(--accent-600))}
+.hero{background:linear-gradient(180deg,var(--brand-50),#fff 60%)}
+.mesh .m1{background:radial-gradient(circle,#bdf0cf,transparent 70%)}
+.mesh .m2{background:radial-gradient(circle,rgba(245,158,11,.42),transparent 70%)}
+.hero-photo::after{background:linear-gradient(180deg,rgba(10,42,23,.05) 45%,rgba(10,42,23,.5))}
+.value-chip{background:var(--brand-600);border:1px solid var(--brand-700);color:#fff}
+.value-chip svg{color:var(--accent-400)}
+.gallery figcaption{background:linear-gradient(transparent,rgba(10,42,23,.88))}
+
+/* dark trust strip */
+.trustbar .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding-block:2.4rem}
+.trust-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.55rem;padding-inline:.5rem}
+.trust-item svg{width:2rem;height:2rem;color:var(--accent-400)}
+.trust-item strong{font-family:var(--font-display);font-weight:800;font-size:1.04rem;color:#fff}
+.trust-item span{font-size:.84rem;color:rgba(255,255,255,.72)}
+.trust-item+.trust-item{border-left:1px solid rgba(255,255,255,.14)}
+@media (max-width:940px){.trustbar .wrap{grid-template-columns:repeat(2,1fr);gap:1.5rem}.trust-item:nth-child(3){border-left:0}}
+@media (max-width:560px){.trustbar .wrap{grid-template-columns:1fr}.trust-item+.trust-item{border-left:0;border-top:1px solid rgba(255,255,255,.14);padding-top:1.3rem}}
